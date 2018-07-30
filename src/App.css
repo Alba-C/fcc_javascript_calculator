@@ -1,0 +1,85 @@
+.calculator {
+  height: 400px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+#result-wrapper {
+  width: 100%;
+  background-color: blue;
+  border-radius: 10px;
+  height: 70px;
+  border: solid black 2px;
+  box-shadow: inset 2px 1px 5px 0px black;
+  padding: 2px 5px 2px 5px;
+}
+
+#display {
+  color: white;
+  text-align: right;
+  font-size: 2.5em;
+  width: 100%;
+}
+
+#history {
+  color: #888;
+  width: 100%;
+  /* padding-left: 5px;
+  padding-bottom: 5px; */
+}
+
+#keypad {
+  /* display: flex; */
+  height: 100%;
+}
+
+#digit-wrapper {
+  display: inline;
+  float: left;
+  /* height: 75%; */
+  width: 75%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  background-color: yellow;
+}
+
+#op-wrapper {
+  display: inline;
+  float: right;
+  width: 25%;
+  /* height: 100%; */
+  background-color: aquamarine;
+  text-align: center;
+}
+#mod-wrapper {
+  display: block;
+  background: grey;
+  width: 75%;
+  /* height: 100%; */
+}
+
+.btn-digits {
+  width: 75px;
+  height: 75px;
+  border-radius: 5px;
+  border: solid black 1px;
+  box-shadow: inset 2px 1px 20px 0px black;
+}
+
+.btn-operators {
+  width: 75px;
+  height: 75px;
+  border-radius: 5px;
+  border: solid black 2px;
+  box-shadow: inset 2px 1px 20px 0px yellow;
+}
+
+.btn-modifiers {
+  width: 75px;
+  height: 75px;
+  border-radius: 5px;
+  border: solid black 2px;
+  box-shadow: inset 2px 1px 20px 0px yellow;
+}
