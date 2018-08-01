@@ -18,13 +18,15 @@
 #display {
   color: white;
   text-align: right;
-  font-size: 2.5em;
-  width: 100%;
+  font-size: 2em;
+  width: 300px;
+  height: 1.5em;
 }
 
 #history {
   color: #888;
   width: 100%;
+  height: 1em;
   /* padding-left: 5px;
   padding-bottom: 5px; */
 }
@@ -32,6 +34,8 @@
 #keypad {
   /* display: flex; */
   height: 100%;
+  width: 300px;
+  background-color: rgb(53, 108, 156);
 }
 
 #digit-wrapper {
@@ -42,7 +46,7 @@
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
-  background-color: yellow;
+  background-color: transparent;
 }
 
 #op-wrapper {
@@ -55,7 +59,7 @@
 }
 #mod-wrapper {
   display: block;
-  background: grey;
+  /* background: grey; */
   width: 75%;
   /* height: 100%; */
 }

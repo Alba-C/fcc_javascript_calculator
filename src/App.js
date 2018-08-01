@@ -9,31 +9,169 @@ class App extends Component {
       display: "0",
       historyText: "",
       historyArr: [],
-      currentOp: ""
+      currentOp: "",
+      rollingValue: 0
     };
 
     this.handleDigit = this.handleDigit.bind(this);
     this.handleOperand = this.handleOperand.bind(this);
     this.handleClear = this.handleClear.bind(this);
+    this.callEqual = this.callEqual.bind(this);
+    this.backSpace = this.backSpace.bind(this);
+    this.plusMinus = this.plusMinus.bind(this);
   }
 
   handleDigit(e) {
-    console.log("state =" + this.state.display);
     const digit = e.target.value;
-    console.log(digit);
-    const displayNum = parseFloat(this.state.display);
+    const currentHisArr = [...this.state.historyArr];
+    const lastIndex = currentHisArr.length === 0 ? 0 : currentHisArr.length - 1;
 
-    (digit === "." && this.state.display.indexOf(".") == -1) || digit != "."
-      ? this.state.display == "0"
-        ? this.setState({ display: digit })
-        : this.setState({ display: this.state.display + digit })
-      : console.log("blockDecimal");
+    console.log(lastIndex);
+
+    if (
+      (digit === "." && this.state.display.indexOf(".") === -1) ||
+      digit !== "."
+    ) {
+      if (this.state.display === "0" || this.state.display === "") {
+        this.setState({
+          display: digit,
+          currentOp: "",
+          historyArr: [...currentHisArr, digit]
+        });
+      } else if (this.state.rollingValue !== 0) {
+        console.log("RollingValue not 0");
+
+        this.setState({
+          display: digit,
+          currentOp: "",
+          historyArr: [digit],
+          rollingValue: 0
+        });
+      } else {
+        let currentVal = currentHisArr[lastIndex] + digit;
+        let newArr = [...currentHisArr];
+        newArr[lastIndex] = currentVal;
+        console.log("newArr = " + newArr);
+        this.setState({
+          display: this.state.display + digit,
+          currentOp: "",
+          historyArr: newArr
+        });
+        //this.showHistory();
+      }
+    }
+    setTimeout(() => {
+      this.showHistory();
+    }, 150);
   }
 
+  backSpace() {
+    console.log("BackSpace()");
+
+    if (this.state.rollingValue === 0) {
+      const currentBackOne = this.state.display.slice(0, -1);
+      console.log(currentBackOne);
+      const currentHisArr = [...this.state.historyArr];
+      const lastIndex =
+        currentHisArr.length === 0 ? 0 : currentHisArr.length - 1;
+      const replaceArr = [...this.state.historyArr];
+      replaceArr[lastIndex] = currentBackOne;
+      this.setState({
+        display: currentBackOne,
+        historyArr: [...replaceArr]
+      });
+    }
+  }
+
+  plusMinus() {
+    console.log("plusMinus");
+    const curVal = this.state.display;
+    const newVal = parseFloat(curVal) * -1;
+    console.log(curVal, newVal);
+    const currentHisArr = [...this.state.historyArr];
+    const lastIndex = currentHisArr.length === 0 ? 0 : currentHisArr.length - 1;
+    const replaceArr = [...currentHisArr];
+    replaceArr[lastIndex] = newVal;
+    console.log(replaceArr);
+    this.setState({
+      display: newVal,
+      historyArr: [...replaceArr],
+      historyText: replaceArr.join(" ")
+    });
+  }
+
+  swapOp() {
+    let currentArr = [...this.state.historyArr];
+    currentArr.pop();
+    return currentArr;
+  }
+
+  showHistory() {
+    const showHistory = this.state.historyArr.join(" ");
+    this.setState({ historyText: showHistory });
+  }
+
+  callEqual() {
+    const endOfHistArr = this.state.historyArr[
+      this.state.historyArr.length - 1
+    ];
+    const regEx = RegExp("[÷x+-]$");
+    // if (endOfHistArr.match(/[+-÷x]/)) {
+    if (regEx.test(endOfHistArr)) {
+      console.log("bad end");
+      console.log(endOfHistArr);
+      console.log(this.swapOp().join(" "));
+      const valString = this.swapOp()
+        .join(" ")
+        .replace(/÷/, "/")
+        .replace(/x/, "*");
+      console.log(valString);
+      const newVal = eval(valString);
+      console.log(newVal);
+      //this.currentArr.pop();
+      this.setState({
+        historyText: this.swapOp().join(" "),
+        display: newVal,
+        rollingValue: newVal,
+        historyArr: [newVal]
+      });
+    } else {
+      console.log("else");
+      const valString = [...this.state.historyArr]
+        .join(" ")
+        .replace(/÷/, "/")
+        .replace(/x/, "*");
+      console.log(valString);
+      const newVal = eval(valString);
+      console.log(newVal);
+      this.setState({
+        historyText: valString,
+        display: newVal,
+        rollingValue: newVal,
+        historyArr: [newVal]
+      });
+    }
+  }
   handleOperand(e) {
-    console.log(e.target.id);
-    console.log("Op CLicked");
-    this.setState({ currentOp: e.target.id });
+    const newOp = e.target.value;
+
+    if (this.state.display !== "0") {
+      this.state.currentOp === ""
+        ? this.setState({
+            currentOp: newOp,
+            historyArr: [...this.state.historyArr, newOp],
+            display: "",
+            rollingValue: 0
+          })
+        : this.setState({
+            historyArr: [...this.swapOp(), newOp],
+            display: ""
+          });
+
+      setTimeout(() => {
+        this.showHistory();
+      }, 250);
+    }
   }
 
   handleClear() {
@@ -41,18 +179,79 @@ class App extends Component {
       display: "0",
       historyText: "",
       currentOp: "",
-      historyArr: []
+      historyArr: [],
+      rollingValue: 0
     });
   }
+
+  handleKeyDown(e) {
+    console.log(e.key);
+    switch (e.key) {
+      // key 7
+      case "7":
+        return document.getElementById("seven").click();
+      case "8":
+        return document.getElementById("eight").click();
+      case "9":
+        return document.getElementById("nine").click();
+      case "4":
+        return document.getElementById("four").click();
+      case "5":
+        return document.getElementById("five").click();
+      case "6":
+        return document.getElementById("six").click();
+      case "1":
+        return document.getElementById("one").click();
+      case "2":
+        return document.getElementById("two").click();
+      case "3":
+        return document.getElementById("three").click();
+      case "0":
+        return document.getElementById("zero").click();
+      case ".":
+        return document.getElementById("decimal").click();
+      case "/":
+        return document.getElementById("divide").click();
+      case "*":
+        return document.getElementById("multiply").click();
+      case "-":
+        return document.getElementById("subtract").click();
+      case "+":
+        return document.getElementById("add").click();
+      case "Enter":
+        return document.getElementById("equals").click();
+      case "Backspace":
+        return document.getElementById("backSpace").click();
+      case "Clear":
+        return document.getElementById("clear").click();
+      case "Delete":
+        return document.getElementById("clear").click();
+
+      default:
+        return console.log("default");
+    }
+  }
+
+  componentWillMount = () => {
+    console.log("mounted");
+    document.addEventListener("keydown", this.handleKeyDown);
+  };
+
   render() {
     return (
       <div className="App">
         <div className="calculator">
-          <Display result={this.state.display} />
+          <Display
+            result={this.state.display}
+            historyText={this.state.historyText}
+          />
           <Keypad
             handleDigit={this.handleDigit}
             handleClear={this.handleClear}
             handleOperand={this.handleOperand}
+            handleEqual={this.callEqual}
+            handleBackSpace={this.backSpace}
+            handlePlusMinus={this.plusMinus}
           />
         </div>
       </div>
@@ -67,7 +266,7 @@ class Display extends Component {
     return (
       <div id="result-wrapper">
         <Results result={this.props.result} />
-        <History />
+        <History historyText={this.props.historyText} />
       </div>
     );
   }
@@ -81,7 +280,7 @@ class Results extends Component {
 
 class History extends Component {
   render() {
-    return <div id="history">history + 7 X 4 =</div>;
+    return <div id="history"> {this.props.historyText} </div>;
   }
 }
 
@@ -90,8 +289,15 @@ class Keypad extends Component {
     return (
       <div id="keypad">
         <Digits handleDigit={this.props.handleDigit} />
-        <Operators handleOperand={this.props.handleOperand} />
-        <Modifiers handleClear={this.props.handleClear} />
+        <Operators
+          handleOperand={this.props.handleOperand}
+          handleEqual={this.props.handleEqual}
+        />
+        <Modifiers
+          handleClear={this.props.handleClear}
+          handleBackSpace={this.props.handleBackSpace}
+          handlePlusMinus={this.props.handlePlusMinus}
+        />
       </div>
     );
   }
@@ -112,7 +318,7 @@ class Digits extends Component {
         <button
           className="btn-digits"
           id="eight"
-          value="8 "
+          value="8"
           onClick={this.props.handleDigit}
         >
           8
@@ -201,6 +407,7 @@ class Operators extends Component {
         <button
           className="btn-operators"
           id="divide"
+          value="÷"
           onClick={this.props.handleOperand}
         >
           ÷
@@ -208,6 +415,7 @@ class Operators extends Component {
         <button
           className="btn-operators"
           id="multiply"
+          value="x"
           onClick={this.props.handleOperand}
         >
           X
@@ -215,6 +423,7 @@ class Operators extends Component {
         <button
           className="btn-operators"
           id="subtract"
+          value="-"
           onClick={this.props.handleOperand}
         >
           -
@@ -222,6 +431,7 @@ class Operators extends Component {
         <button
           className="btn-operators"
           id="add"
+          value="+"
           onClick={this.props.handleOperand}
         >
           +
@@ -229,7 +439,9 @@ class Operators extends Component {
         <button
           className="btn-operators"
           id="equals"
-          onClick={this.props.handleOperand}
+          value="="
+          // onClick={this.props.handleOperand}
+          onClick={this.props.handleEqual}
         >
           =
         </button>
@@ -249,8 +461,18 @@ class Modifiers extends Component {
         >
           Clear
         </button>
-        <button className="btn-modifiers">blank</button>
-        <button className="btn-modifiers">blank</button>
+        <button
+          className="btn-modifiers"
+          id="backSpace"
+          onClick={this.props.handleBackSpace}
+        >
+          <span role="img" aria-label="plus or minus">
+            🔙
+          </span>
+        </button>
+        <button className="btn-modifiers" onClick={this.props.handlePlusMinus}>
+          +/-
+        </button>
       </div>
     );
   }
