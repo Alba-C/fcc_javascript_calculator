@@ -1,34 +1,55 @@
-.calculator {
-  height: 400px;
-  width: 300px;
+.App {
+  background-color: yellow;
+  background-image: url("https://images.unsplash.com/photo-1526376043067-5af36c35cd6c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=aed342eea1c8593563be90e10c423dfe&auto=format&fit=crop&w=1639&q=80");
+  background-size: contain;
+  height: 100vh;
   display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.calculator {
+  /* height: 400px;
+  width: 300px; */
+  background-color: #2a3a6f;
+  padding: 20px;
+  display: flex;
+  align-items: center;
   flex-direction: column;
+  border-radius: 10px;
+  box-shadow: inset 0px 2px 20px 5px rgba(0, 0, 0, 0.705),
+    2px 10px 50px 2px #2a3a6f;
 }
 
 #result-wrapper {
+  background-color: gray;
+  margin-top: 10px;
+  margin-bottom: 20px;
   width: 100%;
-  background-color: blue;
+
   border-radius: 10px;
   height: 70px;
   border: solid black 2px;
   box-shadow: inset 2px 1px 5px 0px black;
-  padding: 2px 5px 2px 5px;
+  /* padding: 2px 5px 2px 5px; */
 }
 
 #display {
   color: white;
+  background-color: transparent;
   text-align: right;
   font-size: 2em;
-  width: 300px;
+  border-color: transparent;
+
+  width: 320px;
   height: 1.5em;
 }
 
 #history {
-  color: #888;
+  color: #eee;
   width: 100%;
   height: 1em;
-  /* padding-left: 5px;
-  padding-bottom: 5px; */
+  padding-left: 5px;
+  padding-bottom: 5px;
 }
 
 #keypad {
@@ -36,6 +57,9 @@
   height: 100%;
   width: 300px;
   background-color: rgb(53, 108, 156);
+  padding: 1px;
+  border-radius: 3px;
+  box-shadow: 0 0 10px 1px black, inset 0 0 10px 1px rgb(82, 81, 81);
 }
 
 #digit-wrapper {
@@ -54,11 +78,11 @@
   float: right;
   width: 25%;
   /* height: 100%; */
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   text-align: center;
 }
 #mod-wrapper {
-  display: block;
+  display: inline-block;
   /* background: grey; */
   width: 75%;
   /* height: 100%; */
@@ -72,18 +96,24 @@
   box-shadow: inset 2px 1px 20px 0px black;
 }
 
+#zero {
+  width: 150px;
+}
+
 .btn-operators {
   width: 75px;
   height: 75px;
+  background-color: rgb(199, 77, 40);
   border-radius: 5px;
   border: solid black 2px;
-  box-shadow: inset 2px 1px 20px 0px yellow;
+  box-shadow: inset 2px 1px 20px 0px black;
 }
 
 .btn-modifiers {
   width: 75px;
   height: 75px;
+  background-color: rgb(183, 199, 40);
   border-radius: 5px;
   border: solid black 2px;
-  box-shadow: inset 2px 1px 20px 0px yellow;
+  box-shadow: inset 2px 1px 20px 0px black;
 }

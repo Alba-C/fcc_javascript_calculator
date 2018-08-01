@@ -52,6 +52,11 @@ class App extends Component {
         let newArr = [...currentHisArr];
         newArr[lastIndex] = currentVal;
         console.log("newArr = " + newArr);
+        const strToNum = parseFloat(this.state.display + digit).toLocaleString(
+          "en",
+          { maximumSignificantDigits: 16 }
+        );
+        console.log(strToNum);
         this.setState({
           display: this.state.display + digit,
           currentOp: "",
@@ -274,7 +279,7 @@ class Display extends Component {
 
 class Results extends Component {
   render() {
-    return <div id="display">{this.props.result}</div>;
+    return <input id="display" value={this.props.result} />;
   }
 }
 
@@ -288,16 +293,16 @@ class Keypad extends Component {
   render() {
     return (
       <div id="keypad">
-        <Digits handleDigit={this.props.handleDigit} />
-        <Operators
-          handleOperand={this.props.handleOperand}
-          handleEqual={this.props.handleEqual}
-        />
         <Modifiers
           handleClear={this.props.handleClear}
           handleBackSpace={this.props.handleBackSpace}
           handlePlusMinus={this.props.handlePlusMinus}
         />
+        <Operators
+          handleOperand={this.props.handleOperand}
+          handleEqual={this.props.handleEqual}
+        />
+        <Digits handleDigit={this.props.handleDigit} />
       </div>
     );
   }
