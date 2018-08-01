@@ -259,6 +259,7 @@ class App extends Component {
             handlePlusMinus={this.plusMinus}
           />
         </div>
+        <Footer />
       </div>
     );
   }
@@ -478,6 +479,50 @@ class Modifiers extends Component {
         <button className="btn-modifiers" onClick={this.props.handlePlusMinus}>
           +/-
         </button>
+      </div>
+    );
+  }
+}
+
+class Footer extends Component {
+  render() {
+    return (
+      <div className="footer">
+        <div className="socialLinks">
+          <a href="https://github.com/REAOrlando" target="_blank">
+            <i className="fab fa-github" />
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/christopheralbanesefl/"
+            target="_blank"
+          >
+            <i className="fab fa-linkedin" />
+          </a>
+
+          <a href="https://twitter.com/albanesechris" target="_blank">
+            <i className="fab fa-twitter" />
+          </a>
+
+          <a href="https://codepen.io/REAOrlando/" target="_blank">
+            <i className="fab fa-codepen" />
+          </a>
+        </div>
+
+        <p>© Christopher Albanese 2018</p>
+
+        <div className="photoCredits">
+          <p>
+            Background photo by{" "}
+            <a href="https://unsplash.com/@rawpixel" target="_blank">
+              rawpixel
+            </a>{" "}
+            on{" "}
+            <a href="https://unsplash.com/photos/Dz-lPF200Rg" target="_blank">
+              Unsplash
+            </a>
+          </p>
+        </div>
       </div>
     );
   }
