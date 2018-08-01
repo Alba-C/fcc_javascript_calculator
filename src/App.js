@@ -52,11 +52,10 @@ class App extends Component {
         let newArr = [...currentHisArr];
         newArr[lastIndex] = currentVal;
         console.log("newArr = " + newArr);
-        const strToNum = parseFloat(this.state.display + digit).toLocaleString(
-          "en",
-          { maximumSignificantDigits: 16 }
+
+        console.log(
+          "formatted = " + this.formatNum(this.state.display + digit)
         );
-        console.log(strToNum);
         this.setState({
           display: this.state.display + digit,
           currentOp: "",
@@ -68,6 +67,24 @@ class App extends Component {
     setTimeout(() => {
       this.showHistory();
     }, 150);
+  }
+
+  formatNum(str) {
+    console.log("string in = " + str);
+    console.log(str.slice(-1));
+    if (str.slice(-1) !== ".") {
+      const stripCommas = str.replace(/,/g, "");
+
+      console.log("stripCommas = " + stripCommas);
+      console.log("string out = " + parseFloat(stripCommas).toLocaleString());
+      return parseFloat(stripCommas).toLocaleString();
+    } else {
+      return str;
+    }
+    // toLocaleString("en");
+    // .toLocaleString("en", {
+    //   maximumSignificantDigits: 16
+    // });
   }
 
   backSpace() {
@@ -279,7 +296,7 @@ class Display extends Component {
 
 class Results extends Component {
   render() {
-    return <input id="display" value={this.props.result} />;
+    return <div id="display">{this.props.result}</div>;
   }
 }
 
