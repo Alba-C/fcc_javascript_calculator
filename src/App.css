@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Righteous|Roboto+Mono");
+
 .App {
   background-color: yellow;
   background-image: url("https://images.unsplash.com/photo-1526376043067-5af36c35cd6c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=aed342eea1c8593563be90e10c423dfe&auto=format&fit=crop&w=1639&q=80");
@@ -27,7 +29,7 @@
   width: 100%;
 
   border-radius: 10px;
-  height: 70px;
+  height: 80px;
   border: solid black 2px;
   box-shadow: inset 2px 1px 5px 0px black;
   /* padding: 2px 5px 2px 5px; */
@@ -37,7 +39,8 @@
   color: white;
   background-color: transparent;
   text-align: right;
-  font-size: 2em;
+  font-size: 2.25em;
+  font-family: "Roboto Mono", monospace;
   border-color: transparent;
 
   width: 320px;
@@ -50,6 +53,7 @@
   height: 1em;
   padding-left: 5px;
   padding-bottom: 5px;
+  font-family: "Roboto Mono", monospace;
 }
 
 #keypad {
@@ -71,6 +75,12 @@
   flex-wrap: wrap;
   align-content: space-between;
   background-color: transparent;
+}
+
+button {
+  font-family: "Righteous", cursive;
+  font-size: 1.5em;
+  color: #4d4d4e;
 }
 
 #op-wrapper {
@@ -104,6 +114,7 @@
   width: 75px;
   height: 75px;
   background-color: rgb(199, 77, 40);
+  color: antiquewhite;
   border-radius: 5px;
   border: solid black 2px;
   box-shadow: inset 2px 1px 20px 0px black;
@@ -116,4 +127,18 @@
   border-radius: 5px;
   border: solid black 2px;
   box-shadow: inset 2px 1px 20px 0px black;
+}
+
+#clear {
+  font-size: 1.5em;
+}
+
+#backSpace {
+  color: black;
+  color: red;
+  font-size: 1.2em;
+}
+#backSpace span {
+  padding: 0;
+  margin: 30px;
 }

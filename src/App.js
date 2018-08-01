@@ -279,13 +279,13 @@ class Display extends Component {
 
 class Results extends Component {
   render() {
-    return <input id="display" value={this.props.result} />;
+    return <div id="display">{this.props.result}</div>;
   }
 }
 
 class History extends Component {
   render() {
-    return <div id="history"> {this.props.historyText} </div>;
+    return <div id="history">{this.props.historyText}</div>;
   }
 }
 
